@@ -1,33 +1,65 @@
-// 1. Validação simples do formulário de contato
-const formulario = document.querySelector('form');
+// ===============================
+// Agro Sustentável - script.js
+// ===============================
 
-formulario.addEventListener('submit', function(event) {
-    event.preventDefault(); // Impede o envio real para não recarregar a página
-    
-    const nome = document.querySelector('input[name="nome"]').value;
-    
-    if (nome === "") {
-        alert("Por favor, preencha seu nome!");
-    } else {
-        alert("Obrigada, " + nome + "! Recebemos sua mensagem com sucesso.");
-        formulario.reset(); // Limpa os campos após o envio
-    }
-});
-
-// 2. Efeito de "Scroll Suave" para os links do menu
-document.querySelectorAll('nav a').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
+// 1. Scroll suave para navegação
+document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('click', function (e) {
         e.preventDefault();
-        
-        const targetId = this.getAttribute('href').substring(1);
-        const targetSection = document.getElementById(targetId);
-        
-        window.scrollTo({
-            top: targetSection.offsetTop,
-            behavior: 'smooth'
-        });
+
+        const targetId = this.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+
+        if (targetSection) {
+            targetSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
     });
 });
 
-// 3. Exemplo de interação: Botão de alerta para o Quiz (adicionando ao HTML depois)
-console.log("O site está pronto para a interação!");
+// 2. Validação simples do formulário
+const form = document.querySelector("form");
+
+form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const nome = form.nome.value.trim();
+    const email = form.email.value.trim();
+    const mensagem = form.mensagem.value.trim();
+
+    if (!nome || !email || !mensagem) {
+        alert("Por favor, preencha todos os campos.");
+        return;
+    }
+
+    if (!email.includes("@")) {
+        alert("Digite um e-mail válido.");
+        return;
+    }
+
+    alert("Mensagem enviada com sucesso! 🌱");
+
+    form.reset();
+});
+
+// 3. Contador de seções vistas (efeito visual simples)
+let sectionsViewed = new Set();
+
+const sections = document.querySelectorAll("section");
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            sectionsViewed.add(entry.target.id);
+            console.log("Seções vistas:", sectionsViewed.size);
+        }
+    });
+}, {
+    threshold: 0.5
+});
+
+sections.forEach(section => {
+    observer.observe(section);
+});

@@ -1,158 +1,142 @@
 /* Reset básico */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', sans-serif; line-height: 1.6; color: #333; }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f8f2;
-    color: #333;
-    line-height: 1.6;
-}
-
-/* Menu */
+/* Header */
 header {
-    background-color: #2e7d32;
-    padding: 15px 0;
+    background: #2e7d32;
+    color: white;
+    padding: 1rem 2rem;
     position: sticky;
     top: 0;
     z-index: 100;
+    transition: box-shadow 0.3s;
 }
+header.scrolled { box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
 
 nav ul {
     list-style: none;
     display: flex;
+    gap: 1.5rem;
     justify-content: center;
-    gap: 30px;
 }
-
 nav a {
     color: white;
     text-decoration: none;
-    font-weight: bold;
-    transition: 0.3s;
+    font-weight: 500;
+    transition: color 0.3s;
 }
+nav a:hover { color: #c8e6c9; }
 
-nav a:hover {
-    color: #c8e6c9;
-}
-
-/* Seção inicial */
-#inicio {
-    text-align: center;
-    padding: 60px 20px;
-    background: linear-gradient(to right, #81c784, #4caf50);
+/* Menu mobile */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
     color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
 }
 
-#inicio h1 {
-    font-size: 2.8em;
-    margin-bottom: 20px;
-}
-
-#inicio img {
-    width: 80%;
-    max-width: 700px;
-    border-radius: 15px;
-    margin: 20px 0;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+@media (max-width: 768px) {
+    .menu-toggle { display: block; }
+    nav ul {
+        display: none;
+        flex-direction: column;
+        text-align: center;
+    }
+    nav ul.ativo { display: flex; }
 }
 
 /* Seções */
 section {
+    padding: 4rem 2rem;
     max-width: 1000px;
-    margin: 40px auto;
-    padding: 30px;
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    margin: 0 auto;
 }
+section h2 { color: #2e7d32; margin-bottom: 1rem; }
 
-section h2 {
-    color: #2e7d32;
-    margin-bottom: 15px;
-    border-left: 5px solid #66bb6a;
-    padding-left: 10px;
+/* Animação fade-in */
+.fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* Imagem inicial */
+#inicio img { width: 100%; max-height: 400px; object-fit: cover; border-radius: 10px; margin: 1rem 0; }
+
+/* Calculadora e Quiz */
+.calculadora, .quiz {
+    background: #f1f8e9;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-top: 2rem;
+    border-left: 5px solid #2e7d32;
 }
-
-section h3 {
-    margin-top: 20px;
-    color: #388e3c;
+.calculadora label, .quiz label {
+    display: block;
+    margin: 0.8rem 0;
+    font-weight: 500;
 }
-
-/* Lista */
-ul {
-    margin-left: 20px;
-    margin-top: 10px;
+.calculadora input, .calculadora select, .quiz input[type="radio"] {
+    margin-left: 0.5rem;
 }
+button {
+    background: #2e7d32;
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 1rem;
+    transition: background 0.3s;
+}
+button:hover { background: #1b5e20; }
 
-li {
-    margin-bottom: 8px;
+.resultado {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 5px;
+    border-left: 4px solid #66bb6a;
 }
 
 /* Formulário */
-form {
-    margin-top: 20px;
+#contato form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 500px;
 }
-
-label {
-    font-weight: bold;
-}
-
-input,
-textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 8px 0 15px;
+#contato input, #contato textarea {
+    padding: 0.6rem;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: 5px;
+    font-family: inherit;
 }
+#contato textarea { min-height: 100px; resize: vertical; }
 
-textarea {
-    height: 120px;
-    resize: vertical;
-}
-
-button {
-    background-color: #2e7d32;
+/* Botão voltar ao topo */
+#btnTopo {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #2e7d32;
     color: white;
     border: none;
-    padding: 12px 25px;
-    border-radius: 8px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.5rem;
     cursor: pointer;
-    font-size: 16px;
-    transition: 0.3s;
+    display: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
-button:hover {
-    background-color: #1b5e20;
-}
-
-/* Rodapé */
+/* Footer */
 footer {
-    background-color: #2e7d32;
+    background: #1b5e20;
     color: white;
     text-align: center;
-    padding: 20px;
-    margin-top: 40px;
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-    nav ul {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
-    }
-
-    #inicio h1 {
-        font-size: 2em;
-    }
-
-    section {
-        margin: 20px;
-        padding: 20px;
-    }
+    padding: 1.5rem;
+    margin-top: 2rem;
 }
